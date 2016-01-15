@@ -1,7 +1,7 @@
 package ru.mangeorge.awt;
 
 /**
- *
+ * Класс определяющий точку в пространстве. Позволяет задать точке имя
  */
 public class Point {
 

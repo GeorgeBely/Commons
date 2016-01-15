@@ -7,8 +7,20 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import ru.mangeorge.swing.graphics.CustomXYDataset;
 
+/**
+ * Сервис лля работы с двумерным графиком
+ */
 public class ScatterPlotService {
 
+    /**
+     * Создание двумерного графика
+     *
+     * @param title   наименование графика
+     * @param titleX  наименование оси X
+     * @param titleY  наименование оси Y
+     * @param data    данные
+     * @return компонент двумерного графика
+     */
     public static JFreeChart createChart(String title, String titleX, String titleY, CustomXYDataset data) {
         JFreeChart jfreechart = ChartFactory.createScatterPlot(title, titleX, titleY, data, PlotOrientation.VERTICAL, true, true, false);
 
