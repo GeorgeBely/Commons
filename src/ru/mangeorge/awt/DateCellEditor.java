@@ -19,7 +19,7 @@ public class DateCellEditor extends DefaultCellEditor {
     public JTextField textField;
     private DateFormat dateFormat;
 
-    public DateCellEditor(JTextField textField, DateFormat dateFormat, CalendarService.DateCellFunction dateCellFunction) {
+    public DateCellEditor(JTextField textField, DateFormat dateFormat, CalendarService.DateFunction dateFunction) {
         super(textField);
         textField.addMouseListener(new MouseListener() {
             public void mouseReleased(MouseEvent e) { }
@@ -28,7 +28,7 @@ public class DateCellEditor extends DefaultCellEditor {
             public void mouseClicked(MouseEvent e) { }
             public void mousePressed(MouseEvent e) {
                 try {
-                    CalendarService.addPopupCalendarDialog(textField, null, dateCellFunction);
+                    CalendarService.addPopupCalendarDialog(textField, dateFormat, dateFunction);
                 } catch (ParseException ignore) { }
             }
         });

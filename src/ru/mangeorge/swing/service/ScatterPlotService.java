@@ -40,6 +40,17 @@ public class ScatterPlotService {
         return jfreechart;
     }
 
+    /**
+     * Обновляет данные на графике
+     *
+     * @param scatterPlot двумерный график
+     * @param data        данные
+     */
+    public static void updateData(JFreeChart scatterPlot, CustomXYDataset data) {
+        XYPlot plot = (XYPlot) scatterPlot.getPlot();
+
+        plot.setDataset(data);
+    }
 
 }
 

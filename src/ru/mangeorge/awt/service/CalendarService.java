@@ -41,10 +41,10 @@ public class CalendarService {
      *
      * @param textField        - поле над которым необходимо отобразить календарь
      * @param format           - формат вывода даты
-     * @param dateCellFunction - функция, которую нужно выполнить после установки даты. Не обязательно.
+     * @param dateFunction - функция, которую нужно выполнить после установки даты. Не обязательно.
      * @throws ParseException
      */
-    public static void addPopupCalendarDialog(JTextField textField, DateFormat format, DateCellFunction dateCellFunction) throws ParseException {
+    public static void addPopupCalendarDialog(JTextField textField, DateFormat format, DateFunction dateFunction) throws ParseException {
         final DateFormat dateFormat;
         if (format == null)
             dateFormat = FORMAT_DATE;
@@ -63,14 +63,14 @@ public class CalendarService {
                     ((JFormattedTextField) textField).setValue(selectDate);
                 else
                     textField.setText(dateFormat.format(selectDate));
-                if (dateCellFunction != null)
-                    dateCellFunction.dateCellClick(selectDate);
+                if (dateFunction != null)
+                    dateFunction.dateCellClick(selectDate);
                 popupDialog.closeDialog();
             }
         });
     }
 
-    public interface DateCellFunction {
+    public interface DateFunction {
         void dateCellClick(Date date);
     }
 }

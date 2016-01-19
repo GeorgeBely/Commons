@@ -9,6 +9,9 @@ import ru.mangeorge.awt.Point;
 import java.util.List;
 
 
+/**
+ * Класс реализующий модель данных, для двумерных графиков
+ */
 public class CustomXYDataset extends AbstractXYDataset implements org.jfree.data.xy.XYDataset, DomainInfo, RangeInfo {
 
     private Double xValues[][];
@@ -23,7 +26,10 @@ public class CustomXYDataset extends AbstractXYDataset implements org.jfree.data
     private Range range;
     private List<String> names;
 
-
+    /**
+     * @param values - список списков точек. Каждый отдельный список с точками будет отображаться как отдельная функция
+     * @param names  - список имён функций
+     */
     public CustomXYDataset(List<List<Point>> values, List<String> names) {
         if (values != null && !values.isEmpty()) {
             this.names = names;
@@ -105,6 +111,10 @@ public class CustomXYDataset extends AbstractXYDataset implements org.jfree.data
 
     public Range getRangeBounds(boolean flag) {
         return range;
+    }
+
+    public String toString() {
+        return "данные";
     }
 }
 

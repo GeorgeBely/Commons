@@ -1,15 +1,13 @@
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 import ru.mangeorge.awt.Point;
+import ru.mangeorge.awt.service.JTableService;
 import ru.mangeorge.swing.graphics.CustomXYDataset;
-import ru.mangeorge.swing.service.ScatterPlotService;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 
 public class MainFrame extends JFrame {
@@ -34,15 +32,26 @@ public class MainFrame extends JFrame {
         }};
         add(panel);
 
+        Vector<String> headerModel1 = new Vector<>();
+        headerModel1.add("lol");
+
+        DefaultTableModel modelLevel1 = new DefaultTableModel(headerModel1, 0);
+        JTable tableLevel1 = new JTable(modelLevel1);
+        tableLevel1.getColumn("lol").setCellEditor(JTableService.getScatterPlotCellEditor(new Dimension(400, 400), "lol", "bu", "gaga"));
+
+
+
         List<List<Point>> data = new ArrayList<>();
+        List<List<Point>> data2 = new ArrayList<>();
         List<String> names = new ArrayList<>();
+        List<String> names2 = new ArrayList<>();
+
+        List<Point> list = new ArrayList<>();
         for (double i = 0; i <= 10; i = i + 1) {
-            List<Point> list = new ArrayList<>();
-            Double d = new Random().nextDouble() * 10;
-            list.add(new Point(d, i));
-            names.add("ololo pishpish ");
-            data.add(list);
+            list.add(new Point(new Random().nextDouble() * 10, i));
         }
+        data.add(list);
+        names.add("ololo pishpish ");
         List<Point> val2 = new ArrayList<>();
         for (double i = 0; i < 10; i = i + 0.1) {
             val2.add(new Point(0, i));
@@ -50,18 +59,17 @@ public class MainFrame extends JFrame {
             val2.add(new Point(8, i));
             val2.add(new Point(10, i));
         }
-        names.add("сигма ограничение");
-        data.add(val2);
-
-        JFreeChart sca = ScatterPlotService.createChart("lolka", "xz", "0_O", new CustomXYDataset(data, names));
+        names2.add("сигма ограничение");
+        data2.add(val2);
 
 
-        ChartPanel cp = new ChartPanel(sca) {{
-            setLocation(5, 5);
-            setSize(470, 450);
-            setVisible(true);
+        modelLevel1.addRow(new Object[]{new CustomXYDataset(data, names)});
+        modelLevel1.addRow(new Object[]{new CustomXYDataset(data2, names2)});
+        JScrollPane scrollTableLevel1 = new JScrollPane(tableLevel1) {{
+            setLocation(25, 25);
+            setSize(100, 100);
         }};
-        panel.add(cp);
+        panel.add(scrollTableLevel1);
     }
 
 }
