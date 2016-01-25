@@ -8,7 +8,6 @@
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/JButtonCellRenderer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/Point.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/PopupCellEditor.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/ScatterPlotCellEditor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/SelectCellEditor.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/service/CalendarService.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/ru/mangeorge/awt/service/JTableService.java" charset="UTF-8" />

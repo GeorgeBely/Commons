@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.DateFormat;
 
 
 /**
@@ -18,6 +17,15 @@ import java.text.DateFormat;
  */
 public class JTableService {
 
+    /**
+     * Создаёт ячейку со всплывающем окном, в котором график распределения растянут на всё всплывающее окно
+     *
+     * @param dimension размер всплывающего окна
+     * @param title     наименование графика
+     * @param titleX    наименование оси x
+     * @param titleY    наименование оси y
+     * @return Объект ячейки при редактировании которого отображается всплывающее окно
+     */
     public static PopupCellEditor getScatterPlotCellEditor(Dimension dimension, String title, String titleX, String titleY) {
         JFreeChart chart = ScatterPlotService.createChart(title, titleX, titleY, null);
         ChartPanel panel = new ChartPanel(chart) {{
@@ -25,22 +33,16 @@ public class JTableService {
             setSize((int) dimension.getWidth() - 21, (int) dimension.getHeight() - 20);
         }};
 
-        return new PopupCellEditor(new JTextField(), new Component[]{panel}, dimension, val -> ScatterPlotService.updateData(chart, (CustomXYDataset) val));
+        return new PopupCellEditor(new JTextField(), new Component[]{panel}, dimension, val -> ScatterPlotService.updateData(chart, (CustomXYDataset) val), null);
     }
 
-    public static SelectCellEditor getSelectCellEditor(Object[] values) {
-        return new SelectCellEditor(new JComboBox<>(), values);
-    }
-
-    public static DateCellEditor getDateCellEditor(DateFormat dateFormat, CalendarService.DateFunction dateFunction) {
-        return new DateCellEditor(new JTextField(), dateFormat, dateFunction);
-    }
-
-    public static PopupCellEditor getPopupCellEditor(Dimension popupDimension, Component[] components, PopupCellEditor.PopupClickFunction clickFunction) {
-        return new PopupCellEditor(new JTextField(), components, popupDimension, clickFunction);
-    }
-
-    public static PopupCellEditor JTextAreaCellEditor(Dimension textDimension, Dimension popupDimension, PopupCellEditor.PopupClickFunction clickFunction) {
+    /**
+     * Создаёт ячейку со всплывающем окном, в котором поле ввода растянуто на всё всплывающее окно
+     *
+     * @param dimension размер всплывающего окна
+     * @return Объект ячейки при редактировании которого отображается всплывающее окно
+     */
+    public static PopupCellEditor getJTextAreaCellEditor(Dimension dimension) {
         JTextField textField = new JTextField();
 
         JTextArea textArea = new JTextArea() {{
@@ -58,18 +60,40 @@ public class JTableService {
         JScrollPane textScrollPane = new JScrollPane() {{
             setViewportView(textArea);
             setLocation(10, 5);
-            setSize(textDimension);
+            setSize((int) dimension.getWidth() - 21, (int) dimension.getHeight() - 20);
         }};
 
-        return new PopupCellEditor(textField, new Component[]{textScrollPane}, popupDimension, clickFunction);
+        return new PopupCellEditor(textField, new Component[]{textScrollPane}, dimension, v -> textArea.setText(v.toString()), textField::getText);
     }
 
-    public static JButtonCellRenderer getJButtonCellRenderer(ImageIcon icon) {
-        return new JButtonCellRenderer(icon);
-    }
+    /**
+     * Создаёт ячейку со всплывающем окном, в котором календарь растянут на всё всплывающее окно
+     *
+     * @param dimension размер всплывающего окна
+     * @return Объект ячейки при редактировании которого отображается всплывающее окно
+     */
+    public static PopupCellEditor getCalendarCellEditor(Dimension dimension) {
+        JTextField textField = new JTextField();
 
-    public static JButtonCellEditor getJButtonCellEditor(ImageIcon icon, JButtonCellEditor.ButtonClickFunction buttonClickFunction) {
-        return new JButtonCellEditor(icon, buttonClickFunction);
+        JTextArea textArea = new JTextArea() {{
+            setLineWrap(true);
+            setWrapStyleWord(true);
+            setText(textField.getText());
+        }};
+        textArea.addKeyListener(new KeyListener() {
+            public void keyTyped(KeyEvent e) { }
+            public void keyPressed(KeyEvent e) { }
+            public void keyReleased(KeyEvent e) {
+                textField.setText(textArea.getText());
+            }
+        });
+        JScrollPane textScrollPane = new JScrollPane() {{
+            setViewportView(textArea);
+            setLocation(10, 5);
+            setSize((int) dimension.getWidth() - 21, (int) dimension.getHeight() - 20);
+        }};
+
+        return new PopupCellEditor(textField, new Component[]{textScrollPane}, dimension, v -> textArea.setText(v.toString()), textField::getText);
     }
 }
 
