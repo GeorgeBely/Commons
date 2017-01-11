@@ -22,7 +22,7 @@ import java.util.TreeMap;
 public class PieService {
 
     /** Название цкуска пирога, в который собираются все остатки из переданного списка после 9 */
-    private static final String ANOTHER_BLOCK_NAME = "Другие";
+    public static final String ANOTHER_BLOCK_NAME = "Другие";
 
     /**
      * Максимальное колличество возможных самостоятельных частей пирога (по умолчанию).
