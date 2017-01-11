@@ -66,35 +66,6 @@ public class JTableService {
         return new PopupCellEditor(textField, new Component[]{textScrollPane}, dimension, v -> textArea.setText(v.toString()), textField::getText);
     }
 
-    /**
-     * Создаёт ячейку со всплывающем окном, в котором календарь растянут на всё всплывающее окно
-     *
-     * @param dimension размер всплывающего окна
-     * @return Объект ячейки при редактировании которого отображается всплывающее окно
-     */
-    public static PopupCellEditor getCalendarCellEditor(Dimension dimension) {
-        JTextField textField = new JTextField();
-
-        JTextArea textArea = new JTextArea() {{
-            setLineWrap(true);
-            setWrapStyleWord(true);
-            setText(textField.getText());
-        }};
-        textArea.addKeyListener(new KeyListener() {
-            public void keyTyped(KeyEvent e) { }
-            public void keyPressed(KeyEvent e) { }
-            public void keyReleased(KeyEvent e) {
-                textField.setText(textArea.getText());
-            }
-        });
-        JScrollPane textScrollPane = new JScrollPane() {{
-            setViewportView(textArea);
-            setLocation(10, 5);
-            setSize((int) dimension.getWidth() - 21, (int) dimension.getHeight() - 20);
-        }};
-
-        return new PopupCellEditor(textField, new Component[]{textScrollPane}, dimension, v -> textArea.setText(v.toString()), textField::getText);
-    }
 }
 
 
