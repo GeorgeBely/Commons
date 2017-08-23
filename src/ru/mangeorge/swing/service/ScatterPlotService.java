@@ -7,6 +7,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import ru.mangeorge.swing.graphics.CustomXYDataset;
 
+import java.util.Locale;
+
 /**
  * Сервис лля работы с двумерным графиком
  */
@@ -36,6 +38,11 @@ public class ScatterPlotService {
 
         NumberAxis numberaxis = (NumberAxis) xyplot.getDomainAxis();
         numberaxis.setAutoRangeIncludesZero(false);
+
+        String noDataMessage = "No data available";
+        if (Locale.getDefault().equals(new Locale("ru", "RU")))
+            noDataMessage = "Нет данных";
+        xyplot.setNoDataMessage(noDataMessage);
 
         return jfreechart;
     }

@@ -61,23 +61,25 @@ public class PieService {
      * @param data - данные
      */
     public static void updatePieData(JFreeChart pie, PieDataset data) {
-        PiePlot plot = (PiePlot) pie.getPlot();
+        if (!data.getKeys().isEmpty()) {
+            PiePlot plot = (PiePlot) pie.getPlot();
 
-        plot.setExplodePercent((String) data.getKeys().get(0), 0.20);
-        plot.setDataset(data);
+            plot.setExplodePercent((String) data.getKeys().get(0), 0.20);
+            plot.setDataset(data);
 
-        int greenCount = 255;
-        int redCount = 0;
-        int blueCount = 0;
-        int step = 511/data.getKeys().size();
-        for (Object keyObj : data.getKeys()) {
-            plot.setSectionPaint(keyObj.toString(), new Color(redCount, greenCount, blueCount));
-            if (greenCount > step) {
-                greenCount -= step;
-                redCount += step;
-            } else if (blueCount < 255 - step) {
-                blueCount += step;
-                redCount -= step;
+            int greenCount = 255;
+            int redCount = 0;
+            int blueCount = 0;
+            int step = 511 / data.getKeys().size();
+            for (Object keyObj : data.getKeys()) {
+                plot.setSectionPaint(keyObj.toString(), new Color(redCount, greenCount, blueCount));
+                if (greenCount > step) {
+                    greenCount -= step;
+                    redCount += step;
+                } else if (blueCount < 255 - step) {
+                    blueCount += step;
+                    redCount -= step;
+                }
             }
         }
     }
